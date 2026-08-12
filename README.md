@@ -25,4 +25,4 @@ npm run build
 npm run audit:production
 ```
 
-Não há GTM, GA4, backend ou armazenamento de leads nesta entrega. O formulário só monta uma mensagem e abre o WhatsApp após a confirmação explícita da pessoa visitante.
+O Google Tag Manager usa o container `GTM-58FFD9HS`. Não há GA4 configurado diretamente no código, backend ou armazenamento de leads nesta entrega. O formulário só monta uma mensagem e abre o WhatsApp após a confirmação explícita da pessoa visitante.

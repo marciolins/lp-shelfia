@@ -45,8 +45,24 @@ for (const type of [
     fail(`JSON-LD type missing: ${type}.`);
 }
 
-if (/googletagmanager\.com|gtag\(|dataLayer/i.test(html))
-  fail("Analytics must remain disabled in this isolated delivery.");
+const gtmId = "GTM-58FFD9HS";
+const gtmIds = [...html.matchAll(/GTM-[A-Z0-9]+/g)].map((match) => match[0]);
+if (gtmIds.length !== 2 || gtmIds.some((id) => id !== gtmId))
+  fail(`Expected exactly the head and noscript entries for ${gtmId}.`);
+if (
+  !/<head>\s*<!-- Google Tag Manager -->\s*<script>[\s\S]*?GTM-58FFD9HS[\s\S]*?<\/script>/.test(
+    html,
+  )
+)
+  fail("Google Tag Manager script is missing from the top of <head>.");
+if (
+  !/<body>\s*<!-- Google Tag Manager \(noscript\) -->\s*<noscript>\s*<iframe[^>]+ns\.html\?id=GTM-58FFD9HS/.test(
+    html,
+  )
+)
+  fail("Google Tag Manager noscript is missing immediately after <body>.");
+if (/gtag\(/i.test(html))
+  fail("Unexpected direct Google Analytics snippet found in index.html.");
 
 const imageTags = html.match(/<img\b[^>]*>/gi) ?? [];
 for (const tag of imageTags) {
@@ -97,5 +113,5 @@ const distBytes = distFiles.reduce(
   0,
 );
 console.log(
-  `Production audit passed: H1=${h1Count}, images=${imageTags.length}, JSON-LD=5, analytics=off, videos=0, dist=${Math.round(distBytes / 1024)}KB.`,
+  `Production audit passed: H1=${h1Count}, images=${imageTags.length}, JSON-LD=5, GTM=${gtmId}, videos=0, dist=${Math.round(distBytes / 1024)}KB.`,
 );
