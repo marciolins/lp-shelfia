@@ -1,0 +1,30 @@
+# Shelfia
+
+> A Shelfia é uma solução brasileira de visibilidade da execução de gôndolas para redes regionais de supermercados.
+
+## Produto
+
+- A Shelfia apoia donos e gestores de redes de varejo alimentar a acompanhar o que acontece na gôndola, além do saldo indicado no ERP.
+- O fluxo público da solução é: registro da gôndola por foto, análise da imagem, organização da situação para a operação, priorização e reposição.
+- A Shelfia é uma camada complementar aos sistemas existentes; não substitui o ERP da rede.
+- Não há promessa pública de tempo real, precisão, integrações, redução percentual de ruptura ou outras métricas não comprovadas.
+
+## Público
+
+- Donos, diretores e gestores de operações de redes regionais de supermercados.
+- Operações que precisam manter padrão e disponibilidade de gôndola em várias unidades.
+
+## Páginas canônicas
+
+- [Shelfia](https://www.shelfia.com.br/): visão geral da solução, fluxo, diagnóstico e perguntas frequentes.
+- [Login](https://www.shelfia.com.br/login): acesso à aplicação atual.
+- [Demonstração](https://outlook.office.com/book/ComercialIMWTI@imwti.com.br/?ismsaljsauthenabled): agendamento comercial.
+
+## Contato
+
+- WhatsApp comercial: https://wa.me/5583999651105
+
+## Limites das informações públicas
+
+- A adequação da solução, as áreas acompanhadas e o fluxo de operação são definidos no diagnóstico de cada rede.
+- O site não publica preços, cases, clientes, métricas ou alegações de performance sem aprovação e comprovação.

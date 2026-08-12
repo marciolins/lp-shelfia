@@ -1,0 +1,888 @@
+---
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  LockKeyhole,
+  MessageCircleMore,
+} from "@lucide/astro";
+import { Picture } from "astro:assets";
+import diagnosticManager from "../assets/human/diagnostic-shelfia-manager-v1.png";
+import {
+  challengeOptions,
+  currentProcessOptions,
+  site,
+  storeCountOptions,
+} from "../data/content";
+---
+
+<section
+  class="qualification section section--dark"
+  id="diagnostico"
+  aria-labelledby="qualification-title"
+>
+  <div class="container qualification__layout">
+    <div class="qualification__content">
+      <p class="eyebrow" data-reveal>Diagnóstico da rede</p>
+      <h2 class="section-title" id="qualification-title" data-reveal>
+        Conte um pouco sobre sua rede. <span>Continuamos pelo WhatsApp.</span>
+      </h2>
+      <p data-reveal>
+        Suas respostas ajudam nossa equipe a entender a estrutura da rede e a
+        principal necessidade da operação antes da conversa.
+      </p>
+      <ul data-reveal>
+        <li>
+          <Check size={17} aria-hidden="true" /> Leva cerca de dois minutos
+        </li>
+        <li>
+          <Check size={17} aria-hidden="true" /> Nenhum dado é salvo neste site
+        </li>
+        <li>
+          <Check size={17} aria-hidden="true" /> Você confirma o envio no WhatsApp
+        </li>
+      </ul>
+      <div class="qualification__human" data-reveal>
+        <div class="qualification__human-backdrop" aria-hidden="true"></div>
+        <Picture
+          src={diagnosticManager}
+          alt="Gestora de supermercado com prancheta e celular"
+          widths={[280, 420, 560]}
+          sizes="(max-width: 48rem) 78vw, 28vw"
+          formats={["avif", "webp"]}
+          fallbackFormat="webp"
+          loading="lazy"
+        />
+        <div class="qualification__human-note" aria-hidden="true">
+          <span></span><div>
+            <small>Diagnóstico inicial</small><strong
+              >A sua operação, do seu jeito</strong
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card" data-form-card data-reveal>
+      <div class="form-card__top">
+        <span data-step-label>Pergunta 1 de 8</span>
+        <strong><b data-progress-value>13</b>% concluído</strong>
+      </div>
+      <div class="form-card__progress" aria-hidden="true">
+        <span data-progress></span>
+      </div>
+
+      <form
+        class="form"
+        data-qualification-form
+        data-whatsapp={site.whatsappNumber}
+        novalidate
+      >
+        <fieldset class="form__step" data-form-step>
+          <legend>Qual é o seu nome?</legend>
+          <p>Informe o nome da pessoa responsável pela conversa.</p>
+          <label class="form__field">
+            <span>Nome completo</span>
+            <input
+              name="nome"
+              type="text"
+              autocomplete="name"
+              minlength="2"
+              maxlength="100"
+              required
+              placeholder="Digite seu nome"
+            />
+          </label>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-step hidden>
+          <legend>Qual é o seu e-mail corporativo?</legend>
+          <p>Usaremos esse contato apenas para contextualizar o diagnóstico.</p>
+          <label class="form__field">
+            <span>E-mail corporativo</span>
+            <input
+              name="email"
+              type="email"
+              autocomplete="email"
+              maxlength="140"
+              required
+              placeholder="voce@empresa.com.br"
+            />
+          </label>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-step hidden>
+          <legend>Qual é o melhor WhatsApp para contato?</legend>
+          <p>Informe um número brasileiro com DDD.</p>
+          <label class="form__field">
+            <span>WhatsApp com DDD</span>
+            <input
+              name="telefone"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              required
+              placeholder="(32) 99999-9999"
+            />
+          </label>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-step hidden>
+          <legend>Em qual rede você trabalha?</legend>
+          <p>Informe o nome comercial da empresa.</p>
+          <label class="form__field">
+            <span>Nome da empresa</span>
+            <input
+              name="empresa"
+              type="text"
+              autocomplete="organization"
+              minlength="2"
+              maxlength="120"
+              required
+              placeholder="Nome da empresa"
+            />
+          </label>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-step hidden>
+          <legend>Quantas lojas fazem parte da rede?</legend>
+          <p>Escolha a faixa que melhor representa sua operação atual.</p>
+          <div class="form__options">
+            {
+              storeCountOptions.map((option, index) => (
+                <label class="form__option">
+                  <>
+                    <input
+                      type="radio"
+                      name="quantidade_lojas"
+                      value={option.label}
+                      required
+                    />
+                    <span class="form__option-letter">
+                      {String.fromCharCode(65 + index)}
+                    </span>
+                    <span>{option.label}</span>
+                  </>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-step hidden>
+          <legend>Como vocês acompanham a gôndola hoje?</legend>
+          <p>Selecione o processo mais próximo da realidade da rede.</p>
+          <div class="form__options">
+            {
+              currentProcessOptions.map((option, index) => (
+                <label class="form__option">
+                  <>
+                    <input
+                      type="radio"
+                      name="processo_atual"
+                      value={option.label}
+                      required
+                    />
+                    <span class="form__option-letter">
+                      {String.fromCharCode(65 + index)}
+                    </span>
+                    <span>{option.label}</span>
+                  </>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-step hidden>
+          <legend>Qual é o maior desafio hoje?</legend>
+          <p>Escolha o desafio que merece atenção primeiro.</p>
+          <div class="form__options">
+            {
+              challengeOptions.map((option, index) => (
+                <label class="form__option">
+                  <>
+                    <input
+                      type="radio"
+                      name="desafio"
+                      value={option.label}
+                      required
+                    />
+                    <span class="form__option-letter">
+                      {String.fromCharCode(65 + index)}
+                    </span>
+                    <span>{option.label}</span>
+                  </>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="form__step" data-form-step hidden>
+          <legend>Qual ERP ou sistema sua rede utiliza?</legend>
+          <p>Se preferir, informe “não sei” ou descreva outro sistema.</p>
+          <label class="form__field"
+            ><span>ERP ou sistema atual</span><input
+              name="erp"
+              type="text"
+              autocomplete="organization"
+              minlength="2"
+              maxlength="120"
+              required
+              placeholder="Ex.: sistema próprio"
+            /></label
+          >
+        </fieldset>
+
+        <div class="form__actions">
+          <button class="form__back" type="button" data-step-back hidden>
+            <ArrowLeft size={18} aria-hidden="true" /> Voltar
+          </button>
+          <button
+            class="button button--primary form__next"
+            type="button"
+            data-step-next
+          >
+            <span>Continuar</span><ArrowRight size={18} aria-hidden="true" />
+          </button>
+        </div>
+
+        <p class="form__error" role="alert" aria-live="polite" data-form-error>
+        </p>
+        <p class="form__privacy">
+          <LockKeyhole size={15} aria-hidden="true" />
+          Os dados permanecem no seu navegador até você confirmar o envio no WhatsApp.
+        </p>
+      </form>
+
+      <div class="form__success" data-form-success hidden tabindex="-1">
+        <span class="form__success-icon"
+          ><Check size={28} aria-hidden="true" /></span
+        >
+        <p class="eyebrow">Tudo pronto</p>
+        <h3>Continue a conversa no WhatsApp.</h3>
+        <p>A mensagem já está organizada com as informações da sua operação.</p>
+        <a
+          class="button button--primary"
+          href={site.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-whatsapp-fallback
+        >
+          <MessageCircleMore size={19} aria-hidden="true" /> Abrir WhatsApp
+        </a>
+      </div>
+
+      <noscript>
+        <p class="form__noscript">
+          Ative o JavaScript para preencher o diagnóstico ou <a
+            href={site.whatsappUrl}>fale diretamente pelo WhatsApp</a
+          >.
+        </p>
+      </noscript>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>(
+    "[data-qualification-form]",
+  );
+  const card = document.querySelector<HTMLElement>("[data-form-card]");
+  const steps = [
+    ...(form?.querySelectorAll<HTMLFieldSetElement>("[data-form-step]") ?? []),
+  ];
+  const next = form?.querySelector<HTMLButtonElement>("[data-step-next]");
+  const back = form?.querySelector<HTMLButtonElement>("[data-step-back]");
+  const error = form?.querySelector<HTMLElement>("[data-form-error]");
+  const label = card?.querySelector<HTMLElement>("[data-step-label]");
+  const progress = card?.querySelector<HTMLElement>("[data-progress]");
+  const progressValue = card?.querySelector<HTMLElement>(
+    "[data-progress-value]",
+  );
+  const success = card?.querySelector<HTMLElement>("[data-form-success]");
+  const fallback = card?.querySelector<HTMLAnchorElement>(
+    "[data-whatsapp-fallback]",
+  );
+  let currentStep = 0;
+
+  const activeControl = () =>
+    steps[currentStep]?.querySelector<HTMLInputElement | HTMLSelectElement>(
+      "input, select",
+    );
+
+  const track = (event: string, details: Record<string, unknown> = {}) => {
+    const trackingWindow = window as Window & {
+      dataLayer?: Record<string, unknown>[];
+    };
+    void event;
+    void details;
+    void trackingWindow;
+  };
+
+  const update = (focus = false) => {
+    steps.forEach((step, index) => (step.hidden = index !== currentStep));
+    const percentage = Math.round(((currentStep + 1) / steps.length) * 100);
+    if (label)
+      label.textContent = `Pergunta ${currentStep + 1} de ${steps.length}`;
+    if (progress) progress.style.width = `${percentage}%`;
+    if (progressValue) progressValue.textContent = String(percentage);
+    if (back) back.hidden = currentStep === 0;
+    if (next) {
+      next.type = currentStep === steps.length - 1 ? "submit" : "button";
+      const text = next.querySelector("span");
+      if (text)
+        text.textContent =
+          currentStep === steps.length - 1
+            ? "Continuar pelo WhatsApp"
+            : "Continuar";
+    }
+    if (error) error.textContent = "";
+    if (focus) activeControl()?.focus();
+  };
+
+  const validateCurrentStep = () => {
+    const step = steps[currentStep];
+    if (!step) return false;
+    const controls = [
+      ...step.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
+        "input, select",
+      ),
+    ];
+    const phone = step.querySelector<HTMLInputElement>(
+      'input[name="telefone"]',
+    );
+    if (phone) {
+      const digits = phone.value.replace(/\D/g, "");
+      phone.setCustomValidity(
+        digits.length === 10 || digits.length === 11
+          ? ""
+          : "Informe um telefone com DDD.",
+      );
+    }
+    const invalid = controls.find((control) => !control.checkValidity());
+    if (invalid) {
+      if (error)
+        error.textContent =
+          invalid.validationMessage || "Preencha esta etapa para continuar.";
+      invalid.reportValidity();
+      invalid.focus();
+      return false;
+    }
+    return true;
+  };
+
+  const buildWhatsAppUrl = () => {
+    if (!form) return "";
+    const values = new FormData(form);
+    let attribution: Record<string, string> = {};
+    try {
+      attribution = JSON.parse(
+        sessionStorage.getItem("shelfia_attribution") || "{}",
+      ) as Record<string, string>;
+    } catch {
+      attribution = {};
+    }
+
+    const lines = [
+      "Olá! Preenchi o diagnóstico no site da Shelfia.",
+      "",
+      `Nome: ${values.get("nome") ?? ""}`,
+      `E-mail: ${values.get("email") ?? ""}`,
+      `WhatsApp: ${values.get("telefone") ?? ""}`,
+      `Rede: ${values.get("empresa") ?? ""}`,
+      `Quantidade de lojas: ${values.get("quantidade_lojas") ?? ""}`,
+      `Processo atual: ${values.get("processo_atual") ?? ""}`,
+      `Maior desafio: ${values.get("desafio") ?? ""}`,
+      `ERP ou sistema: ${values.get("erp") ?? ""}`,
+    ];
+
+    const origin = [attribution.utm_source, attribution.utm_campaign]
+      .filter(Boolean)
+      .join(" / ");
+    if (origin) lines.push(`Origem da campanha: ${origin}`);
+    if (attribution.gclid) lines.push(`Google Click ID: ${attribution.gclid}`);
+    if (attribution.fbclid) lines.push(`Meta Click ID: ${attribution.fbclid}`);
+    if (attribution.msclkid)
+      lines.push(`Microsoft Click ID: ${attribution.msclkid}`);
+
+    const number = form.dataset.whatsapp || "5583999651105";
+    return `https://wa.me/${number}?text=${encodeURIComponent(lines.join("\n"))}`;
+  };
+
+  next?.addEventListener("click", () => {
+    if (currentStep >= steps.length - 1 || !validateCurrentStep()) return;
+    track("qualification_step_complete", { step: currentStep + 1 });
+    currentStep += 1;
+    update(true);
+  });
+
+  back?.addEventListener("click", () => {
+    if (currentStep === 0) return;
+    currentStep -= 1;
+    update(true);
+  });
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!validateCurrentStep()) return;
+    const url = buildWhatsAppUrl();
+    if (fallback) fallback.href = url;
+    track("qualification_complete", { step: steps.length });
+    form.hidden = true;
+    const top = card?.querySelector<HTMLElement>(".form-card__top");
+    const bar = card?.querySelector<HTMLElement>(".form-card__progress");
+    if (top) top.hidden = true;
+    if (bar) bar.hidden = true;
+    if (success) {
+      success.hidden = false;
+      success.focus();
+    }
+    window.open(url, "_blank", "noopener,noreferrer");
+  });
+
+  form
+    ?.querySelectorAll<HTMLInputElement>('input[type="radio"]')
+    .forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if (error) error.textContent = "";
+      });
+    });
+
+  update();
+</script>
+
+<style>
+  .qualification {
+    overflow: hidden;
+  }
+
+  .qualification::before {
+    position: absolute;
+    right: -16rem;
+    bottom: -20rem;
+    width: 50rem;
+    height: 50rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(7 153 182 / 22%), transparent 67%);
+    content: "";
+  }
+
+  .qualification__layout {
+    position: relative;
+    display: grid;
+    align-items: start;
+    gap: 3rem;
+  }
+
+  .qualification__content {
+    max-width: 35rem;
+  }
+
+  .qualification__content h2 {
+    margin-top: 0.9rem;
+    color: var(--white);
+  }
+
+  .qualification__content h2 span {
+    color: #55d7c0;
+  }
+
+  .qualification__content > p:not(.eyebrow) {
+    margin-top: 1.4rem;
+    color: #aec2ce;
+    font-size: 1.03rem;
+  }
+
+  .qualification__content ul {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.8rem;
+    color: #cfdee6;
+    font-size: 0.9rem;
+  }
+
+  .qualification__content li {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .qualification__content :global(li svg) {
+    color: #55d7c0;
+  }
+
+  .qualification__human {
+    position: relative;
+    min-height: 13.5rem;
+    margin-top: 1.7rem;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 1.15rem;
+    background: linear-gradient(145deg, #16395c, #0c263d);
+  }
+  .qualification__human-backdrop {
+    position: absolute;
+    right: -1.5rem;
+    bottom: -4rem;
+    width: 17rem;
+    height: 17rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      #2c9de6 0%,
+      #2854b7 48%,
+      transparent 49%
+    );
+    opacity: 0.75;
+  }
+  .qualification__human :global(picture) {
+    position: absolute;
+    z-index: 1;
+    right: -2%;
+    bottom: -8rem;
+    width: 72%;
+  }
+  .qualification__human :global(img) {
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(-0.7rem 0.9rem 1.2rem rgb(0 0 0 / 30%));
+  }
+  .qualification__human-note {
+    position: absolute;
+    z-index: 2;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid rgb(255 255 255 / 50%);
+    border-radius: 0.7rem;
+    background: rgb(255 255 255 / 94%);
+    box-shadow: 0 0.75rem 1.4rem rgb(0 0 0 / 16%);
+    padding: 0.6rem 0.7rem;
+  }
+  .qualification__human-note > span {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.45rem;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+  }
+  .qualification__human-note small,
+  .qualification__human-note strong {
+    display: block;
+    line-height: 1.25;
+  }
+  .qualification__human-note small {
+    color: #64748b;
+    font-size: 0.55rem;
+  }
+  .qualification__human-note strong {
+    max-width: 12rem;
+    color: #0f172a;
+    font-size: 0.66rem;
+  }
+
+  .form-card {
+    min-height: 35rem;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 18%);
+    border-radius: var(--radius-large);
+    background: var(--white);
+    box-shadow: 0 32px 90px rgb(0 0 0 / 28%);
+  }
+
+  .form-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.35rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .form-card__top span {
+    color: var(--brand);
+    font-weight: 780;
+  }
+
+  .form-card__top strong {
+    font-weight: 650;
+  }
+
+  .form-card__top b {
+    color: var(--ink);
+  }
+
+  .form-card__progress {
+    height: 0.24rem;
+    background: #eaf0f3;
+  }
+
+  .form-card__progress span {
+    display: block;
+    width: 13%;
+    height: 100%;
+    background: var(--gradient);
+    transition: width 300ms ease;
+  }
+
+  .form {
+    padding: clamp(1.35rem, 4vw, 2.25rem);
+  }
+
+  .form[hidden],
+  .form__step[hidden],
+  .form__success[hidden],
+  .form-card__top[hidden],
+  .form-card__progress[hidden] {
+    display: none;
+  }
+
+  .form__step {
+    min-height: 22rem;
+    border: 0;
+    padding: 0;
+  }
+
+  .form__step legend {
+    max-width: 18ch;
+    color: var(--ink);
+    font-size: clamp(1.55rem, 3.5vw, 2.25rem);
+    font-weight: 770;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
+
+  .form__step > p {
+    margin-top: 0.7rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .form__field {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 720;
+  }
+
+  .form__field input,
+  .form__field select {
+    width: 100%;
+    min-height: 3.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: #fbfdfe;
+    color: var(--ink);
+    padding: 0.8rem 1rem;
+    outline: none;
+    transition:
+      border-color var(--transition),
+      box-shadow var(--transition),
+      background var(--transition);
+  }
+
+  .form__field input:focus,
+  .form__field select:focus {
+    border-color: var(--cyan);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgb(7 153 182 / 10%);
+  }
+
+  .form__options {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 1.4rem;
+  }
+
+  .form__option {
+    display: flex;
+    min-height: 3.1rem;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 0.65rem 0.8rem;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.83rem;
+    font-weight: 650;
+    transition:
+      border-color var(--transition),
+      background var(--transition),
+      translate var(--transition);
+  }
+
+  .form__option:hover {
+    border-color: #9ec8d6;
+    background: var(--soft);
+    translate: 2px 0;
+  }
+
+  .form__option:has(input:checked) {
+    border-color: var(--cyan);
+    background: var(--soft-blue);
+    color: var(--ink);
+  }
+
+  .form__option input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .form__option-letter {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 0.45rem;
+    background: var(--soft);
+    color: var(--brand);
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .form__option:has(input:focus-visible) {
+    outline: 3px solid rgb(7 153 182 / 28%);
+    outline-offset: 3px;
+  }
+
+  .form__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 1.1rem;
+  }
+
+  .form__back {
+    display: inline-flex;
+    min-height: 3.3rem;
+    align-items: center;
+    gap: 0.45rem;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 0.8rem;
+    font-weight: 700;
+  }
+
+  .form__back[hidden] {
+    display: none;
+  }
+
+  .form__error {
+    min-height: 1.4rem;
+    margin-top: 0.6rem;
+    color: var(--danger);
+    font-size: 0.8rem;
+    font-weight: 650;
+    text-align: right;
+  }
+
+  .form__privacy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
+  .form__success {
+    display: grid;
+    min-height: 35rem;
+    align-content: center;
+    justify-items: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .form__success-icon {
+    display: grid;
+    width: 4rem;
+    height: 4rem;
+    place-items: center;
+    margin-bottom: 1.2rem;
+    border-radius: 50%;
+    background: #e4f8f2;
+    color: var(--success);
+  }
+
+  .form__success h3 {
+    max-width: 15ch;
+    margin-top: 0.6rem;
+    font-size: 2rem;
+  }
+
+  .form__success > p:not(.eyebrow) {
+    max-width: 28rem;
+    margin-top: 0.8rem;
+    color: var(--muted);
+  }
+
+  .form__success .button {
+    margin-top: 1.5rem;
+  }
+
+  .form__noscript {
+    padding: 1rem;
+    color: var(--ink);
+  }
+
+  .form__noscript a {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 58rem) {
+    .qualification__layout {
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 6rem;
+    }
+
+    .qualification__content {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .qualification__human {
+      min-height: 12rem;
+    }
+    .qualification__human :global(picture) {
+      right: -1rem;
+      bottom: -7rem;
+      width: 68%;
+    }
+    .form__step {
+      min-height: 24rem;
+    }
+
+    .form__actions {
+      display: grid;
+      grid-template-columns: auto 1fr;
+    }
+
+    .form__actions:has(.form__back[hidden]) {
+      grid-template-columns: 1fr;
+    }
+
+    .form__next {
+      width: 100%;
+    }
+  }
+</style>

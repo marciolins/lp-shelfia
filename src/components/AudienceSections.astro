@@ -1,0 +1,258 @@
+---
+import {
+  Building2,
+  ChevronDown,
+  ChartNoAxesCombined,
+  Network,
+  PackageCheck,
+  Presentation,
+  Store,
+  Truck,
+} from "@lucide/astro";
+import { networkProfiles, teamBenefits } from "../data/content";
+const networkIcons = [Store, Building2, PackageCheck, Network];
+const teamIcons = [
+  ChartNoAxesCombined,
+  Store,
+  Presentation,
+  PackageCheck,
+  Truck,
+  Building2,
+];
+---
+
+<section
+  class="segments section section--soft"
+  id="segmentos"
+  aria-labelledby="segments-title"
+>
+  <div class="container">
+    <div class="segments__intro">
+      <div class="section-header">
+        <p class="eyebrow" data-reveal>Para sua rede</p><h2
+          class="section-title"
+          id="segments-title"
+          data-reveal
+        >
+          Para redes que querem manter o olhar do dono <span
+            class="text-gradient">em todas as gôndolas.</span
+          >
+        </h2>
+      </div><p class="section-copy" data-reveal>
+        A Shelfia foi pensada para donos e gestores de redes regionais de
+        supermercados que precisam acompanhar a execução de várias unidades.
+      </p>
+    </div>
+    <div
+      class="segments__grid mobile-snap"
+      aria-label="Perfis de redes atendidas"
+    >
+      {
+        networkProfiles.map((profile, index) => {
+          const Icon = networkIcons[index];
+          return (
+            <article data-reveal>
+              <>
+                <Icon size={22} stroke-width={1.8} aria-hidden="true" />
+                <div>
+                  <>
+                    <h3>{profile.title}</h3>
+                    <p>{profile.description}</p>
+                  </>
+                </div>
+              </>
+            </article>
+          );
+        })
+      }
+    </div>
+    <p class="mobile-scroll-hint" aria-hidden="true">
+      Deslize pelos perfis de rede →
+    </p>
+  </div>
+</section>
+<section class="teams section" aria-labelledby="teams-title">
+  <div class="container teams__layout">
+    <div class="teams__sticky">
+      <p class="eyebrow" data-reveal>Uma mesma visão</p><h2
+        class="section-title"
+        id="teams-title"
+        data-reveal
+      >
+        Diferentes áreas. <span class="text-gradient"
+          >Decisões mais conectadas.</span
+        >
+      </h2><p class="section-copy" data-reveal>
+        Quando a condição da gôndola deixa de ficar espalhada em relatos, cada
+        área consegue olhar para a mesma operação a partir da sua
+        responsabilidade.
+      </p><a class="button button--primary" href="#diagnostico" data-reveal
+        >Ver aplicação na minha rede</a
+      >
+    </div><div class="teams__list">
+      {
+        teamBenefits.map((item, index) => {
+          const Icon = teamIcons[index];
+          return (
+            <details name="beneficio-area" open={index === 0} data-reveal>
+              <>
+                <summary>
+                  <>
+                    <span>
+                      <Icon size={22} stroke-width={1.8} aria-hidden="true" />
+                    </span>
+                    <h3>{item.title}</h3>
+                    <ChevronDown size={19} aria-hidden="true" />
+                  </>
+                </summary>
+                <p>{item.description}</p>
+              </>
+            </details>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+<style>
+  .segments__intro {
+    display: grid;
+    gap: 1rem;
+  }
+  .segments__intro .section-header {
+    margin-bottom: 0;
+  }
+  .segments__intro > .section-copy {
+    align-self: end;
+  }
+  .segments__grid {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 3rem;
+  }
+  .segments__grid article {
+    display: flex;
+    min-height: 8.25rem;
+    align-items: flex-start;
+    gap: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    background: var(--white);
+    padding: 1.1rem;
+  }
+  .segments__grid :global(svg) {
+    flex: 0 0 auto;
+    color: var(--brand);
+  }
+  .segments__grid h3 {
+    font-size: 0.98rem;
+    letter-spacing: -0.02em;
+  }
+  .segments__grid p {
+    margin-top: 0.35rem;
+    color: var(--muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+  .teams__layout {
+    display: grid;
+    gap: 3rem;
+  }
+  .teams__sticky {
+    align-self: start;
+  }
+  .teams__sticky h2 {
+    margin-top: 0.9rem;
+  }
+  .teams__sticky p {
+    margin-top: 1.2rem;
+  }
+  .teams__sticky .button {
+    margin-top: 1.75rem;
+  }
+  .teams__list {
+    border-top: 1px solid var(--border);
+  }
+  .teams__list details {
+    border-bottom: 1px solid var(--border);
+  }
+  .teams__list summary {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.45rem 0;
+    cursor: pointer;
+    list-style: none;
+  }
+  .teams__list summary::-webkit-details-marker {
+    display: none;
+  }
+  .teams__list summary > span {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 0.9rem;
+    background: var(--soft-blue);
+    color: var(--brand);
+  }
+  .teams__list h3 {
+    font-size: 1.08rem;
+  }
+  .teams__list p {
+    margin: -0.45rem 2.5rem 1.35rem 4rem;
+    color: var(--muted);
+    font-size: 0.91rem;
+  }
+  .teams__list summary > :global(svg) {
+    color: var(--brand);
+    transition: rotate var(--transition);
+  }
+  .teams__list details[open] summary > :global(svg) {
+    rotate: 180deg;
+  }
+  @media (min-width: 48rem) {
+    .segments__intro {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 5rem;
+    }
+    .segments__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .teams__layout {
+      grid-template-columns: 0.88fr 1.12fr;
+      gap: 6rem;
+    }
+    .teams__sticky {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+  @media (min-width: 68rem) {
+    .segments__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (max-width: 47.999rem) {
+    .segments__grid {
+      display: flex;
+      margin-top: 2rem;
+    }
+    .segments__grid article {
+      min-height: 10rem;
+    }
+    .teams__layout {
+      gap: 2rem;
+    }
+    .teams__sticky .button {
+      margin-top: 1.25rem;
+    }
+    .teams__list summary {
+      padding: 1rem 0;
+    }
+    .teams__list p {
+      margin: -0.15rem 1.5rem 1rem 0;
+    }
+  }
+</style>

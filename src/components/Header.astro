@@ -1,0 +1,167 @@
+---
+import { ArrowUpRight, Brain, Menu, X } from "@lucide/astro";
+import { site } from "../data/content";
+---
+
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a
+      class="header__brand"
+      href="#inicio"
+      aria-label="Shelfia — página inicial"
+      ><span><Brain size={25} aria-hidden="true" /></span><b>Shelfia</b></a
+    >
+    <nav class="header__desktop" aria-label="Navegação principal">
+      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <a class="button button--primary header__cta" href="#diagnostico"
+      >Solicitar diagnóstico <ArrowUpRight size={18} aria-hidden="true" /></a
+    >
+    <button
+      class="header__menu-button"
+      type="button"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+      aria-controls="menu-mobile"
+      data-menu-button
+      ><Menu class="header__menu-open" size={24} aria-hidden="true" /><X
+        class="header__menu-close"
+        size={24}
+        aria-hidden="true"
+      /></button
+    >
+  </div>
+  <div class="header__mobile" id="menu-mobile" data-mobile-menu hidden>
+    <nav class="container" aria-label="Navegação móvel">
+      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}<a
+        class="button button--primary"
+        href="#diagnostico">Solicitar diagnóstico</a
+      >
+    </nav>
+  </div>
+</header>
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const button = header?.querySelector<HTMLButtonElement>("[data-menu-button]");
+  const menu = header?.querySelector<HTMLElement>("[data-mobile-menu]");
+  const closeMenu = () => {
+    if (!button || !menu) return;
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Abrir menu");
+    menu.hidden = true;
+  };
+  button?.addEventListener("click", () => {
+    if (!menu) return;
+    const willOpen = button.getAttribute("aria-expanded") !== "true";
+    button.setAttribute("aria-expanded", String(willOpen));
+    button.setAttribute("aria-label", willOpen ? "Fechar menu" : "Abrir menu");
+    menu.hidden = !willOpen;
+  });
+  menu
+    ?.querySelectorAll("a")
+    .forEach((link) => link.addEventListener("click", closeMenu));
+  window.matchMedia("(min-width: 62rem)").addEventListener("change", closeMenu);
+</script>
+<style>
+  .header {
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    border-bottom: 1px solid rgb(219 226 244 / 90%);
+    background: rgb(255 255 255 / 92%);
+    backdrop-filter: blur(18px);
+  }
+  .header__inner {
+    display: flex;
+    min-height: 5rem;
+    align-items: center;
+    gap: 2rem;
+  }
+  .header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--navy-900);
+    font-size: 1.35rem;
+    letter-spacing: -0.055em;
+  }
+  .header__brand span {
+    display: grid;
+    width: 2.1rem;
+    height: 2.1rem;
+    place-items: center;
+    border-radius: 0.7rem;
+    background: linear-gradient(135deg, var(--brand), var(--violet));
+    color: #fff;
+  }
+  .header__brand b {
+    font-weight: 800;
+  }
+  .header__desktop {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.25rem, 2.3vw, 2rem);
+    margin-inline: auto;
+  }
+  .header__desktop a {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 690;
+    transition: color var(--transition);
+  }
+  .header__desktop a:hover {
+    color: var(--brand);
+  }
+  .header__cta {
+    min-height: 2.9rem;
+    padding: 0.75rem 1.1rem;
+    font-size: 0.88rem;
+  }
+  .header__menu-button {
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    margin-left: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.7rem;
+    background: var(--white);
+  }
+  .header__menu-close,
+  .header__menu-button[aria-expanded="true"] .header__menu-open {
+    display: none;
+  }
+  .header__menu-button[aria-expanded="true"] .header__menu-close {
+    display: block;
+  }
+  .header__mobile {
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow-small);
+  }
+  .header__mobile[hidden] {
+    display: none;
+  }
+  .header__mobile nav {
+    display: grid;
+    gap: 0;
+    padding-block: 0.65rem 1.25rem;
+  }
+  .header__mobile nav > a:not(.button) {
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 0;
+    font-weight: 700;
+  }
+  .header__mobile .button {
+    margin-top: 1rem;
+  }
+  @media (max-width: 61.999rem) {
+    .header__desktop,
+    .header__cta {
+      display: none;
+    }
+    .header__menu-button {
+      display: grid;
+    }
+  }
+</style>

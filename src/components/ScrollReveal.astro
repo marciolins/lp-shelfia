@@ -1,0 +1,34 @@
+<script>
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (!reduceMotion.matches && "IntersectionObserver" in window) {
+    const items = [...document.querySelectorAll<HTMLElement>("[data-reveal]")];
+
+    // Keep content already in the first viewport visible on first paint.
+    items.forEach((item) => {
+      const bounds = item.getBoundingClientRect();
+      if (bounds.top < window.innerHeight && bounds.bottom > 0) {
+        item.classList.add("is-visible");
+      }
+    });
+    document.documentElement.classList.add("reveal-ready");
+
+    items.forEach((item, index) => {
+      item.style.setProperty(
+        "--reveal-delay",
+        `${Math.min(index % 4, 3) * 70}ms`,
+      );
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -7%" },
+    );
+
+    items.forEach((item) => observer.observe(item));
+  }
+</script>

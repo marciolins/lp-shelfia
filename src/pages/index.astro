@@ -1,0 +1,116 @@
+---
+import { getImage } from "astro:assets";
+import heroImage from "../assets/human/hero-shelfia-manager-v1.png";
+import AudienceSections from "../components/AudienceSections.astro";
+import FinalCta from "../components/FinalCta.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import ObjectionsFaq from "../components/ObjectionsFaq.astro";
+import ProblemVisibility from "../components/ProblemVisibility.astro";
+import ProcessComparison from "../components/ProcessComparison.astro";
+import QualificationForm from "../components/QualificationForm.astro";
+import { faqItems, site } from "../data/content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Shelfia | Visibilidade da gôndola para redes de supermercados";
+const description =
+  "A Shelfia ajuda redes regionais de supermercados a acompanhar a execução da gôndola e orientar prioridades de reposição.";
+const ogImage = await getImage({
+  src: heroImage,
+  width: 1200,
+  height: 630,
+  fit: "contain",
+  format: "webp",
+});
+const heroPreload = await getImage({
+  src: heroImage,
+  width: 760,
+  format: "avif",
+});
+const absolute = (path: string) => new URL(path, site.url).href;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.url}/#organization`,
+      name: site.legalName,
+      alternateName: site.name,
+      url: `${site.url}/`,
+      logo: absolute("/favicon.svg"),
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+55-83-99965-1105",
+        contactType: "sales",
+        areaServed: "BR",
+        availableLanguage: "Portuguese",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.url}/#website`,
+      url: `${site.url}/`,
+      name: site.name,
+      inLanguage: "pt-BR",
+      publisher: { "@id": `${site.url}/#organization` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${site.url}/#webpage`,
+      url: `${site.url}/`,
+      name: title,
+      description,
+      inLanguage: "pt-BR",
+      isPartOf: { "@id": `${site.url}/#website` },
+      about: { "@id": `${site.url}/#software` },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: absolute(ogImage.src),
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${site.url}/#software`,
+      name: "Shelfia",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description,
+      url: `${site.url}/`,
+      provider: { "@id": `${site.url}/#organization` },
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType: "Donos e gestores de redes regionais de supermercados",
+      },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${site.url}/#faq`,
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout
+  {title}
+  {description}
+  image={ogImage.src}
+  imageAlt="Gestora de operações de supermercado acompanhando uma gôndola"
+  preloadImage={heroPreload.src}
+  jsonLd={structuredData}
+>
+  <Header slot="header" />
+  <Hero />
+  <ProblemVisibility />
+  <ProcessComparison />
+  <AudienceSections />
+  <ObjectionsFaq />
+  <QualificationForm />
+  <FinalCta />
+  <Footer slot="footer" />
+</BaseLayout>

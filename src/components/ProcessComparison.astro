@@ -1,0 +1,447 @@
+---
+import { ArrowDown, Check, Minus } from "@lucide/astro";
+import { comparisonItems, processItems } from "../data/content";
+---
+
+<section
+  class="process section section--dark"
+  id="como-funciona"
+  aria-labelledby="process-title"
+>
+  <div class="container">
+    <div class="process__intro">
+      <div class="section-header">
+        <p class="eyebrow" data-reveal>Como funciona</p>
+        <h2 class="section-title" id="process-title" data-reveal>
+          Da foto da gôndola à prioridade para sua operação.
+        </h2>
+      </div>
+      <p class="process__lead" data-reveal>
+        A Shelfia transforma um registro simples da loja em uma visão que ajuda
+        a gestão a organizar o que precisa ser conferido e reposto.
+      </p>
+      <div class="process__mockup" data-reveal aria-hidden="true">
+        <div class="process__camera">
+          <span class="process__camera-label">Foto da gôndola</span>
+          <i></i><i></i><i></i>
+          <b></b><b></b><b></b><b></b><b></b><b></b>
+          <em></em>
+        </div>
+        <div class="process__mockup-note">
+          <span></span><div>
+            <small>Leitura da operação</small><strong
+              >Pronta para conferir</strong
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ol class="process__steps mobile-snap">
+      {
+        processItems.map((item) => (
+          <li data-reveal>
+            <span>{item.number}</span>
+            <div>
+              <>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="mobile-scroll-hint process__hint" aria-hidden="true">
+      Deslize pelas etapas â†’
+    </p>
+  </div>
+</section>
+
+<section class="comparison section" aria-labelledby="comparison-title">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="eyebrow" data-reveal>ERP × gôndola</p>
+      <h2 class="section-title" id="comparison-title" data-reveal>
+        O saldo no sistema importa. <span class="text-gradient"
+          >A disponibilidade na gôndola também.</span
+        >
+      </h2>
+    </div>
+
+    <div class="comparison__table" data-reveal>
+      <div class="comparison__head">
+        <span>Somente ERP</span>
+        <ArrowDown size={20} aria-hidden="true" />
+        <strong>Com a Shelfia</strong>
+      </div>
+      {
+        comparisonItems.map((item) => (
+          <div class="comparison__row">
+            <p>
+              <Minus size={17} aria-hidden="true" />
+              {item.before}
+            </p>
+            <span class="comparison__arrow" aria-hidden="true">
+              →
+            </span>
+            <p>
+              <Check size={17} aria-hidden="true" />
+              {item.after}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mobile-scroll-hint" aria-hidden="true">
+      Deslize para comparar â†’
+    </p>
+  </div>
+</section>
+
+<style>
+  .process {
+    overflow: hidden;
+  }
+
+  .process::before {
+    position: absolute;
+    top: -16rem;
+    right: -12rem;
+    width: 42rem;
+    height: 42rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(7 153 182 / 22%), transparent 68%);
+    content: "";
+  }
+
+  .process__intro {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .process .section-header {
+    margin-bottom: 0;
+  }
+
+  .process h2,
+  .process h3 {
+    color: var(--white);
+  }
+
+  .process__lead {
+    max-width: 35rem;
+    align-self: end;
+    color: #afc4d1;
+  }
+
+  .process__mockup {
+    position: relative;
+    min-height: 12.5rem;
+    overflow: hidden;
+    border: 1px solid #294a69;
+    border-radius: 1.2rem;
+    background: linear-gradient(145deg, #102f49, #082033);
+    box-shadow: inset 0 1px rgb(255 255 255 / 6%);
+  }
+
+  .process__camera {
+    position: absolute;
+    top: 1.3rem;
+    right: 1.2rem;
+    bottom: 1.3rem;
+    left: 1.2rem;
+    overflow: hidden;
+    border: 2px solid rgb(147 197 253 / 72%);
+    border-radius: 0.85rem;
+    background: linear-gradient(145deg, #dbeafe, #ecfdf5);
+    transform: rotate(-3deg);
+  }
+
+  .process__camera-label {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.7rem;
+    color: #1e3a8a;
+    font-size: 0.6rem;
+    font-weight: 850;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .process__camera > i {
+    position: absolute;
+    right: 9%;
+    left: 9%;
+    height: 2px;
+    background: #93c5fd;
+  }
+  .process__camera > i:nth-of-type(1) {
+    top: 39%;
+  }
+  .process__camera > i:nth-of-type(2) {
+    top: 60%;
+  }
+  .process__camera > i:nth-of-type(3) {
+    top: 81%;
+  }
+  .process__camera > b {
+    position: absolute;
+    width: 12%;
+    height: 16%;
+    border-radius: 0.28rem;
+    background: #8b5cf6;
+  }
+  .process__camera > b:nth-of-type(1) {
+    top: 22%;
+    left: 16%;
+  }
+  .process__camera > b:nth-of-type(2) {
+    top: 22%;
+    left: 40%;
+    background: #10b981;
+  }
+  .process__camera > b:nth-of-type(3) {
+    top: 22%;
+    left: 65%;
+  }
+  .process__camera > b:nth-of-type(4) {
+    top: 44%;
+    left: 27%;
+    background: #10b981;
+  }
+  .process__camera > b:nth-of-type(5) {
+    top: 44%;
+    left: 54%;
+  }
+  .process__camera > b:nth-of-type(6) {
+    top: 65%;
+    left: 40%;
+    background: #3b82f6;
+  }
+  .process__camera > em {
+    position: absolute;
+    right: 13%;
+    bottom: 11%;
+    width: 3.1rem;
+    height: 2.8rem;
+    border: 2px solid #10b981;
+    border-radius: 0.45rem;
+    box-shadow: 0 0 0 0.25rem rgb(16 185 129 / 18%);
+  }
+  .process__mockup-note {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgb(255 255 255 / 45%);
+    border-radius: 0.7rem;
+    background: rgb(255 255 255 / 94%);
+    box-shadow: 0 0.75rem 1.5rem rgb(2 6 23 / 18%);
+    padding: 0.55rem 0.7rem;
+  }
+  .process__mockup-note span {
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 0.42rem;
+    background: linear-gradient(135deg, #3b82f6, #10b981);
+  }
+  .process__mockup-note small,
+  .process__mockup-note strong {
+    display: block;
+    line-height: 1.25;
+  }
+  .process__mockup-note small {
+    color: #64748b;
+    font-size: 0.54rem;
+  }
+  .process__mockup-note strong {
+    color: #0f172a;
+    font-size: 0.64rem;
+  }
+
+  .process__steps {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    margin-top: 3.5rem;
+  }
+
+  .process__steps li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-medium);
+    background: rgb(12 53 77 / 45%);
+    padding: 1.35rem;
+  }
+
+  .process__steps li > span {
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    place-items: center;
+    border: 1px solid #2d5a70;
+    border-radius: 0.8rem;
+    background: #08283d;
+    color: #55d7c0;
+    font-weight: 800;
+  }
+
+  .process__steps h3 {
+    font-size: 1.08rem;
+    letter-spacing: -0.025em;
+  }
+
+  .process__steps p {
+    margin-top: 0.45rem;
+    color: #aac0cc;
+    font-size: 0.88rem;
+  }
+
+  .comparison__table {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .comparison__head,
+  .comparison__row {
+    display: grid;
+    grid-template-columns: 1fr 3rem 1fr;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .comparison__head {
+    background: var(--navy-950);
+    color: #b9ccd6;
+    padding: 1.2rem 1.5rem;
+    font-weight: 730;
+  }
+
+  .comparison__head :global(svg) {
+    justify-self: center;
+    rotate: -90deg;
+    color: var(--teal);
+  }
+
+  .comparison__head strong {
+    color: var(--white);
+  }
+
+  .comparison__row {
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+    padding: 1.15rem 1.5rem;
+  }
+
+  .comparison__row:last-child {
+    border-bottom: 0;
+  }
+
+  .comparison__row p {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.91rem;
+  }
+
+  .comparison__row p:first-child {
+    color: var(--muted);
+  }
+
+  .comparison__row p:first-child :global(svg) {
+    flex: 0 0 auto;
+    margin-top: 0.25rem;
+    color: #90a3af;
+  }
+
+  .comparison__row p:last-child {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  .comparison__row p:last-child :global(svg) {
+    flex: 0 0 auto;
+    margin-top: 0.25rem;
+    color: var(--success);
+  }
+
+  .comparison__arrow {
+    justify-self: center;
+    color: var(--cyan);
+    font-weight: 800;
+  }
+
+  @media (min-width: 48rem) {
+    .process__intro {
+      grid-template-columns: 1fr 0.72fr 0.95fr;
+      gap: 5rem;
+    }
+
+    .process__steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .process__intro {
+      gap: 1.4rem;
+    }
+
+    .process__steps {
+      display: flex;
+      margin-top: 2rem;
+    }
+
+    .process__steps li {
+      min-height: 12.5rem;
+    }
+
+    .process__hint {
+      color: #aac0cc;
+    }
+
+    .comparison__head {
+      display: none;
+    }
+
+    .comparison__table {
+      display: flex;
+      width: calc(100% + var(--gutter));
+      gap: 0.85rem;
+      overflow-x: auto;
+      border: 0;
+      border-radius: 0;
+      padding: 0 0.15rem 0.8rem 0;
+      box-shadow: none;
+      scroll-snap-type: inline mandatory;
+      scrollbar-width: none;
+    }
+
+    .comparison__table::-webkit-scrollbar {
+      display: none;
+    }
+
+    .comparison__row {
+      min-height: 15rem;
+      flex: 0 0 min(82vw, 20rem);
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-medium);
+      padding: 1.25rem;
+      scroll-snap-align: start;
+    }
+
+    .comparison__arrow {
+      rotate: 90deg;
+    }
+  }
+</style>

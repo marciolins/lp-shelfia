@@ -1,0 +1,23 @@
+<script>
+  const keys = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "gclid",
+    "fbclid",
+    "msclkid",
+  ];
+  const params = new URLSearchParams(window.location.search);
+  const attribution: Record<string, string> = {};
+
+  keys.forEach((key) => {
+    const value = params.get(key);
+    if (value) attribution[key] = value.slice(0, 180);
+  });
+
+  if (Object.keys(attribution).length) {
+    sessionStorage.setItem("shelfia_attribution", JSON.stringify(attribution));
+  }
+</script>

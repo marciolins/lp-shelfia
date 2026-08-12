@@ -1,0 +1,385 @@
+---
+import { ChevronDown, CircleQuestionMark } from "@lucide/astro";
+import { faqItems, objections } from "../data/content";
+---
+
+<section
+  class="objections section section--soft"
+  aria-labelledby="objections-title"
+>
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="eyebrow" data-reveal>Complementa o que sua rede já usa</p>
+      <h2 class="section-title" id="objections-title" data-reveal>
+        A gestão não precisa escolher entre ERP e gôndola. <span
+          class="text-gradient">Precisa enxergar os dois.</span
+        >
+      </h2>
+    </div>
+
+    <div class="objections__visual" data-reveal aria-hidden="true">
+      <div class="objections__erp-card">
+        <div class="objections__window-bar">
+          <i></i><i></i><i></i><span>ERP</span>
+        </div>
+        <div class="objections__erp-content">
+          <small>Estoque registrado</small><b>Produto disponível</b><span
+          ></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="objections__connector"><i></i><span>+</span><i></i></div>
+      <div class="objections__shelf-card">
+        <small>Execução em loja</small><div class="objections__shelf">
+          <i></i><i></i><b></b><b></b><b></b><b></b><em></em>
+        </div><strong>Conferir na gôndola</strong>
+      </div>
+    </div>
+
+    <div class="objections__grid mobile-snap" aria-label="Objeções comuns">
+      {
+        objections.map((item) => (
+          <article data-reveal>
+            <CircleQuestionMark
+              size={23}
+              stroke-width={1.8}
+              aria-hidden="true"
+            />
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="mobile-scroll-hint" aria-hidden="true">
+      Deslize para ver as respostas â†’
+    </p>
+  </div>
+</section>
+
+<section class="faq section" id="duvidas" aria-labelledby="faq-title">
+  <div class="container faq__layout">
+    <div class="faq__intro">
+      <p class="eyebrow" data-reveal>Dúvidas frequentes</p>
+      <h2 class="section-title" id="faq-title" data-reveal>
+        O essencial para começar com clareza.
+      </h2>
+      <p class="section-copy" data-reveal>
+        Cada diagnóstico considera o tamanho da rede, as áreas prioritárias e a
+        rotina de operação de cada supermercado.
+      </p>
+    </div>
+
+    <div class="faq__items" data-reveal>
+      {
+        faqItems.map((item, index) => (
+          <details open={index === 0}>
+            <summary>
+              <span>{item.question}</span>
+              <ChevronDown size={20} aria-hidden="true" />
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .objections__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .objections__visual {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    max-width: 46rem;
+    margin: 0 auto 2.5rem;
+  }
+  .objections__erp-card,
+  .objections__shelf-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: var(--white);
+    box-shadow: var(--shadow-small);
+  }
+  .objections__window-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    height: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding: 0 0.7rem;
+  }
+  .objections__window-bar i {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: #cbd5e1;
+  }
+  .objections__window-bar i:nth-child(2) {
+    background: #a5b4fc;
+  }
+  .objections__window-bar i:nth-child(3) {
+    background: #86efac;
+  }
+  .objections__window-bar span {
+    margin-left: 0.35rem;
+    color: var(--muted);
+    font-size: 0.6rem;
+    font-weight: 800;
+  }
+  .objections__erp-content {
+    display: grid;
+    gap: 0.45rem;
+    padding: 1rem;
+  }
+  .objections__erp-content small,
+  .objections__shelf-card small {
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 700;
+  }
+  .objections__erp-content b {
+    color: var(--ink);
+    font-size: 0.78rem;
+  }
+  .objections__erp-content > span {
+    height: 0.35rem;
+    border-radius: 1rem;
+    background: #e8effb;
+  }
+  .objections__erp-content > span:nth-of-type(1) {
+    width: 82%;
+    background: #bfdbfe;
+  }
+  .objections__erp-content > span:nth-of-type(2) {
+    width: 64%;
+  }
+  .objections__erp-content > span:nth-of-type(3) {
+    width: 74%;
+  }
+  .objections__connector {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--brand);
+  }
+  .objections__connector i {
+    width: 1.3rem;
+    height: 1px;
+    background: #b7c8ec;
+  }
+  .objections__connector span {
+    display: grid;
+    width: 1.9rem;
+    height: 1.9rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #eaf1ff;
+    font-weight: 800;
+  }
+  .objections__shelf-card {
+    padding: 1rem;
+  }
+  .objections__shelf {
+    position: relative;
+    height: 4.7rem;
+    margin-top: 0.55rem;
+    overflow: hidden;
+    border: 1px solid #bfdbfe;
+    border-radius: 0.5rem;
+    background: linear-gradient(145deg, #dbeafe, #ecfdf5);
+  }
+  .objections__shelf i {
+    position: absolute;
+    right: 8%;
+    left: 8%;
+    height: 1px;
+    background: #93c5fd;
+  }
+  .objections__shelf i:first-child {
+    top: 37%;
+  }
+  .objections__shelf i:nth-child(2) {
+    top: 69%;
+  }
+  .objections__shelf b {
+    position: absolute;
+    width: 13%;
+    height: 20%;
+    border-radius: 0.18rem;
+    background: #8b5cf6;
+  }
+  .objections__shelf b:nth-of-type(1) {
+    top: 14%;
+    left: 18%;
+  }
+  .objections__shelf b:nth-of-type(2) {
+    top: 14%;
+    left: 52%;
+    background: #10b981;
+  }
+  .objections__shelf b:nth-of-type(3) {
+    top: 45%;
+    left: 28%;
+    background: #10b981;
+  }
+  .objections__shelf b:nth-of-type(4) {
+    top: 45%;
+    left: 62%;
+  }
+  .objections__shelf em {
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+    width: 1.5rem;
+    height: 1.25rem;
+    border: 1.5px solid #10b981;
+    border-radius: 0.25rem;
+  }
+  .objections__shelf-card strong {
+    display: block;
+    margin-top: 0.55rem;
+    color: #047857;
+    font-size: 0.7rem;
+  }
+
+  .objections__grid article {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-medium);
+    background: var(--white);
+    padding: 1.5rem;
+  }
+
+  .objections__grid :global(svg) {
+    color: var(--cyan);
+  }
+
+  .objections__grid h3 {
+    margin-top: 1rem;
+    font-size: 1.13rem;
+  }
+
+  .objections__grid p {
+    margin-top: 0.65rem;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .faq__layout {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .faq__intro h2 {
+    margin-top: 0.9rem;
+  }
+
+  .faq__intro p {
+    margin-top: 1rem;
+  }
+
+  .faq__items {
+    border-top: 1px solid var(--border);
+  }
+
+  .faq details {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq summary {
+    display: flex;
+    min-height: 4.5rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--ink);
+    cursor: pointer;
+    font-weight: 730;
+    list-style: none;
+  }
+
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq summary :global(svg) {
+    flex: 0 0 auto;
+    color: var(--cyan);
+    transition: rotate var(--transition);
+  }
+
+  .faq details[open] summary :global(svg) {
+    rotate: 180deg;
+  }
+
+  .faq details p {
+    max-width: 44rem;
+    padding: 0 2.5rem 1.35rem 0;
+    color: var(--muted);
+  }
+
+  @media (min-width: 48rem) {
+    .objections__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .faq__layout {
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 6rem;
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .objections__visual {
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .objections__connector i {
+      display: none;
+    }
+    .objections__connector span {
+      width: 1.55rem;
+      height: 1.55rem;
+      font-size: 0.8rem;
+    }
+    .objections__erp-content,
+    .objections__shelf-card {
+      padding: 0.75rem;
+    }
+    .objections__window-bar {
+      height: 1.75rem;
+      padding: 0 0.5rem;
+    }
+    .objections__erp-content b {
+      font-size: 0.7rem;
+    }
+    .objections__grid {
+      display: flex;
+    }
+
+    .objections__grid article {
+      min-height: 14rem;
+      padding: 1.35rem;
+    }
+
+    .faq__layout {
+      gap: 1.75rem;
+    }
+
+    .faq summary {
+      min-height: 3.75rem;
+      font-size: 0.93rem;
+    }
+
+    .faq details p {
+      padding-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

@@ -1,0 +1,471 @@
+---
+import {
+  ArrowRight,
+  Camera,
+  Check,
+  MessageCircleMore,
+  ScanSearch,
+} from "@lucide/astro";
+import { Picture } from "astro:assets";
+import heroImage from "../assets/human/hero-shelfia-manager-v1.png";
+import { site } from "../data/content";
+---
+
+<section class="hero" id="inicio">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <h1 data-reveal>
+        Seu ERP diz que tem produto. <span class="text-gradient"
+          >Mas seu cliente encontra na gôndola?</span
+        >
+      </h1>
+      <p class="hero__copy" data-reveal>
+        A Shelfia dá à sua rede uma visão mais próxima da execução: a gôndola
+        registrada, analisada e organizada para orientar a reposição.
+      </p>
+      <div class="hero__actions" data-reveal>
+        <a class="button button--primary" href="#diagnostico">
+          Quero enxergar minhas gôndolas
+          <ArrowRight size={19} aria-hidden="true" />
+        </a>
+        <a
+          class="button button--secondary"
+          href={`${site.whatsappUrl}?text=${encodeURIComponent("Olá, gostaria de entender como a Shelfia pode apoiar minha rede.")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MessageCircleMore size={19} aria-hidden="true" />
+          Falar pelo WhatsApp
+        </a>
+      </div>
+      <ul
+        class="hero__trust"
+        aria-label="Como a Shelfia apoia sua operação"
+        data-reveal
+      >
+        <li>
+          <Check size={16} aria-hidden="true" /> Visão da execução em loja
+        </li>
+        <li>
+          <Check size={16} aria-hidden="true" /> Prioridades para a operação
+        </li>
+      </ul>
+    </div>
+
+    <div class="hero__visual" data-reveal>
+      <div class="hero__stage">
+        <div class="hero__shelf" aria-hidden="true">
+          <i></i><i></i><i></i>
+          <b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b>
+        </div>
+        <div class="hero__detect hero__detect--one" aria-hidden="true"></div>
+        <div class="hero__detect hero__detect--two" aria-hidden="true"></div>
+        <Picture
+          src={heroImage}
+          alt="Profissional de operações de supermercado usando o celular para acompanhar uma gôndola"
+          widths={[420, 560, 760]}
+          sizes="(max-width: 48rem) 100vw, 50vw"
+          formats={["avif", "webp"]}
+          fallbackFormat="webp"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+
+      <div class="signal-card signal-card--top">
+        <span class="signal-card__icon"><Camera size={18} /></span>
+        <span
+          ><small>Registro da loja</small><strong>Gôndola acompanhada</strong
+          ></span
+        >
+      </div>
+
+      <div class="signal-card signal-card--bottom">
+        <span class="signal-card__icon"><ScanSearch size={18} /></span>
+        <span
+          ><small>Leitura da operação</small><strong
+            >Prioridade organizada</strong
+          ></span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__ribbon" data-reveal>
+    <div class="container hero__ribbon-content">
+      <span>Estoque</span><i aria-hidden="true"></i>
+      <span>Gôndola</span><i aria-hidden="true"></i>
+      <span>Foto</span><i aria-hidden="true"></i>
+      <span>IA analisa</span><i aria-hidden="true"></i>
+      <strong>Reposição</strong>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(4rem, 8vw, 7rem) 0 0;
+    background:
+      radial-gradient(
+        circle at 88% 18%,
+        rgb(139 92 246 / 13%),
+        transparent 23rem
+      ),
+      linear-gradient(180deg, #fff 0%, #f6f9ff 100%);
+  }
+
+  .hero__glow {
+    position: absolute;
+    top: -20rem;
+    right: -18rem;
+    width: 48rem;
+    height: 48rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(59 130 246 / 15%), transparent 66%);
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    align-items: center;
+    gap: clamp(2.25rem, 5vw, 5.5rem);
+  }
+
+  .hero__content {
+    max-width: 38rem;
+  }
+
+  .hero h1 {
+    max-width: 13ch;
+    font-size: clamp(2.45rem, 4vw, 3.8rem);
+    line-height: 1.03;
+    letter-spacing: -0.055em;
+    text-wrap: pretty;
+  }
+
+  .hero__copy {
+    max-width: 35rem;
+    margin-top: 1.2rem;
+    color: var(--muted);
+    font-size: clamp(1.04rem, 1.5vw, 1.16rem);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+  }
+
+  .hero__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.3rem;
+    color: #52677e;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .hero__trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .hero__trust :global(svg) {
+    color: var(--success);
+  }
+
+  .hero__visual {
+    position: relative;
+    width: 100%;
+    max-width: 37rem;
+    align-self: stretch;
+    justify-self: end;
+  }
+
+  .hero__stage {
+    position: relative;
+    height: 100%;
+    min-height: 37rem;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero__stage::before {
+    position: absolute;
+    z-index: -2;
+    inset: 7% 1% 0 8%;
+    border-radius: 48% 48% 2rem 2rem;
+    background:
+      radial-gradient(
+        circle at 76% 25%,
+        rgb(16 185 129 / 23%),
+        transparent 30%
+      ),
+      linear-gradient(145deg, #e8f1ff 2%, #d7e8ff 52%, #f4f7ff 100%);
+    content: "";
+  }
+
+  .hero__shelf {
+    position: absolute;
+    z-index: -1;
+    top: 18%;
+    right: 15%;
+    width: 70%;
+    height: 45%;
+    border: 3px solid rgb(30 64 175 / 64%);
+    border-radius: 1.35rem;
+    opacity: 0.8;
+    transform: rotate(-6deg);
+  }
+
+  .hero__shelf i {
+    position: absolute;
+    right: 9%;
+    left: 9%;
+    height: 2px;
+    background: rgb(30 64 175 / 66%);
+  }
+  .hero__shelf i:nth-child(1) {
+    top: 26%;
+  }
+  .hero__shelf i:nth-child(2) {
+    top: 51%;
+  }
+  .hero__shelf i:nth-child(3) {
+    top: 76%;
+  }
+  .hero__shelf b {
+    position: absolute;
+    width: 12%;
+    height: 13%;
+    border-radius: 0.45rem;
+    background: linear-gradient(135deg, #2563eb, #8b5cf6);
+  }
+  .hero__shelf b:nth-of-type(1) {
+    top: 8%;
+    left: 13%;
+  }
+  .hero__shelf b:nth-of-type(2) {
+    top: 8%;
+    left: 34%;
+    background: #10b981;
+  }
+  .hero__shelf b:nth-of-type(3) {
+    top: 8%;
+    left: 56%;
+  }
+  .hero__shelf b:nth-of-type(4) {
+    top: 34%;
+    left: 24%;
+    background: #10b981;
+  }
+  .hero__shelf b:nth-of-type(5) {
+    top: 34%;
+    left: 49%;
+  }
+  .hero__shelf b:nth-of-type(6) {
+    top: 34%;
+    left: 70%;
+    background: #8b5cf6;
+  }
+  .hero__shelf b:nth-of-type(7) {
+    top: 59%;
+    left: 13%;
+    background: #8b5cf6;
+  }
+  .hero__shelf b:nth-of-type(8) {
+    top: 59%;
+    left: 38%;
+  }
+
+  .hero__detect {
+    position: absolute;
+    z-index: 0;
+    width: 4.5rem;
+    height: 4.5rem;
+    border: 2px solid var(--success);
+    border-radius: 0.8rem;
+    opacity: 0.82;
+  }
+  .hero__detect--one {
+    top: 31%;
+    right: 17%;
+  }
+  .hero__detect--two {
+    top: 47%;
+    right: 43%;
+    border-color: var(--violet);
+  }
+
+  .hero__stage > :global(picture) {
+    position: absolute;
+    z-index: 1;
+    top: -6.4rem;
+    right: -8%;
+    width: 118%;
+  }
+  .hero__stage > :global(picture img) {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 24px 28px rgb(15 23 42 / 20%));
+  }
+
+  .signal-card {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 12rem;
+    border: 1px solid rgb(255 255 255 / 65%);
+    border-radius: 1rem;
+    background: rgb(255 255 255 / 91%);
+    box-shadow: 0 16px 42px rgb(15 23 42 / 18%);
+    padding: 0.85rem 1rem;
+    backdrop-filter: blur(12px);
+  }
+  .signal-card--top {
+    top: 2rem;
+    left: -5rem;
+  }
+  .signal-card--bottom {
+    right: -2rem;
+    bottom: 2.5rem;
+  }
+  .signal-card__icon {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: 0.7rem;
+    background: var(--soft-blue);
+    color: var(--brand);
+  }
+  .signal-card small,
+  .signal-card strong {
+    display: block;
+    line-height: 1.35;
+  }
+  .signal-card small {
+    color: var(--muted);
+    font-size: 0.7rem;
+  }
+  .signal-card strong {
+    color: var(--ink);
+    font-size: 0.82rem;
+  }
+
+  .hero__ribbon {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    border-block: 1px solid var(--border);
+    background: rgb(248 250 255 / 94%);
+    box-shadow: 0 -14px 32px rgb(15 23 42 / 5%);
+    backdrop-filter: blur(6px);
+  }
+  .hero__ribbon-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.25rem;
+    color: var(--muted);
+    font-size: 0.84rem;
+    font-weight: 730;
+  }
+  .hero__ribbon-content i {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, var(--border), var(--cyan));
+  }
+  .hero__ribbon-content strong {
+    color: var(--brand);
+  }
+
+  @media (min-width: 56rem) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1.02fr) minmax(24rem, 0.98fr);
+    }
+  }
+  @media (max-width: 55.999rem) {
+    .hero__visual {
+      width: min(100%, 36rem);
+      justify-self: center;
+    }
+    .signal-card--top {
+      left: 1rem;
+    }
+    .signal-card--bottom {
+      right: 1rem;
+    }
+  }
+  @media (max-width: 35rem) {
+    .hero {
+      padding-top: 2.35rem;
+    }
+    .hero__grid {
+      gap: 1.4rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 9vw, 2.35rem);
+      line-height: 1.06;
+    }
+    .hero__copy {
+      margin-top: 1rem;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+    .hero__actions {
+      display: grid;
+      margin-top: 1.35rem;
+    }
+    .hero__trust {
+      display: none;
+    }
+    .hero__ribbon-content span:nth-of-type(2),
+    .hero__ribbon-content i:nth-of-type(2),
+    .hero__ribbon-content span:nth-of-type(3),
+    .hero__ribbon-content i:nth-of-type(3) {
+      display: none;
+    }
+    .signal-card {
+      min-width: auto;
+      padding: 0.7rem 0.8rem;
+    }
+    .signal-card--top {
+      display: none;
+    }
+    .signal-card--bottom {
+      right: 0.75rem;
+      bottom: 0.75rem;
+    }
+    .hero__stage {
+      min-height: 19rem;
+    }
+    .hero__stage::before {
+      inset: 8% 0 0 5%;
+    }
+    .hero__stage > :global(picture) {
+      top: -3.6rem;
+      right: -8%;
+      width: 122%;
+    }
+    .hero__shelf {
+      top: 19%;
+      right: 6%;
+      width: 78%;
+      height: 49%;
+    }
+    .hero__ribbon-content {
+      padding-block: 1rem;
+    }
+  }
+</style>

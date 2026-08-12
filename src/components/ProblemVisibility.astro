@@ -1,0 +1,462 @@
+---
+import {
+  ChartColumnBig,
+  Boxes,
+  MapPinned,
+  PackageSearch,
+  Store,
+  Waypoints,
+} from "@lucide/astro";
+import { visibilityItems } from "../data/content";
+
+const icons = [
+  Store,
+  Boxes,
+  MapPinned,
+  PackageSearch,
+  Waypoints,
+  ChartColumnBig,
+];
+---
+
+<section class="problem section" aria-labelledby="problem-title">
+  <div class="container problem__grid">
+    <div class="problem__heading" data-reveal>
+      <p class="eyebrow">O ponto cego da operação</p>
+      <h2 class="section-title" id="problem-title">
+        Entre o saldo do sistema e o carrinho do cliente, <span
+          class="text-gradient">existe a gôndola.</span
+        >
+      </h2>
+    </div>
+
+    <div class="problem__copy" data-reveal>
+      <p>
+        O ERP é fundamental para a operação. Mas ele não mostra sozinho se o
+        produto está exposto, acessível e pronto para ser encontrado pelo
+        cliente.
+      </p>
+      <p>
+        Entre fotos dispersas, relatos e visitas, a gestão pode perder a visão
+        de conjunto — especialmente quando a rede cresce.
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="container problem__questions"
+    data-reveal
+    aria-label="Perguntas que a Shelfia ajuda a responder"
+  >
+    <span>O produto está disponível na gôndola?</span>
+    <span>Qual loja ou área pede atenção?</span>
+    <span>O que a reposição precisa conferir?</span>
+    <span>Onde o padrão de execução mudou?</span>
+  </div>
+</section>
+
+<section
+  class="visibility section section--soft"
+  id="visibilidade"
+  aria-labelledby="visibility-title"
+>
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow" data-reveal>Da gôndola à visão compartilhada</p>
+      <h2 class="section-title" id="visibility-title" data-reveal>
+        Veja o que acontece <span class="text-gradient"
+          >onde o cliente decide comprar.</span
+        >
+      </h2>
+      <p class="section-copy" data-reveal>
+        A Shelfia organiza os registros da operação para que diferentes áreas
+        entendam a condição da gôndola com mais clareza.
+      </p>
+    </div>
+
+    <div class="visibility-tabs" data-visibility-tabs>
+      <div
+        class="visibility-tabs__nav"
+        role="tablist"
+        aria-label="Escolha o dado que deseja visualizar"
+      >
+        {
+          visibilityItems.map((item, index) => (
+            <button
+              type="button"
+              role="tab"
+              id={`visibility-tab-${index}`}
+              aria-controls={`visibility-panel-${index}`}
+              aria-selected={index === 0 ? "true" : "false"}
+              tabindex={index === 0 ? 0 : -1}
+              data-visibility-tab
+            >
+              <span aria-hidden="true" />
+              {item.title}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="visibility-tabs__panels">
+        {
+          visibilityItems.map((item, index) => {
+            const Icon = icons[index];
+            return (
+              <article
+                class="visibility__item"
+                role="tabpanel"
+                id={`visibility-panel-${index}`}
+                aria-labelledby={`visibility-tab-${index}`}
+                tabindex="0"
+                data-visibility-panel
+              >
+                <span class="visibility__icon">
+                  <Icon size={28} stroke-width={1.7} aria-hidden="true" />
+                </span>
+                <div>
+                  <p class="visibility__label">O que você passa a enxergar</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+    <div class="visibility__cta" data-reveal>
+      <p>
+        <strong>O resultado:</strong> mais contexto para orientar a rotina de loja
+        e reposição.
+      </p>
+      <a class="button button--primary" href="#diagnostico"
+        >Analisar minha rede</a
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>("[data-visibility-tabs]")
+    .forEach((root) => {
+      const tabs = Array.from(
+        root.querySelectorAll<HTMLButtonElement>("[data-visibility-tab]"),
+      );
+      const panels = Array.from(
+        root.querySelectorAll<HTMLElement>("[data-visibility-panel]"),
+      );
+
+      const activate = (index: number, moveFocus = false) => {
+        tabs.forEach((tab, tabIndex) => {
+          const active = tabIndex === index;
+          tab.setAttribute("aria-selected", String(active));
+          tab.tabIndex = active ? 0 : -1;
+          panels[tabIndex].hidden = !active;
+        });
+
+        if (moveFocus) tabs[index].focus();
+      };
+
+      root.classList.add("tabs-ready");
+      activate(0);
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("click", () => activate(index));
+        tab.addEventListener("keydown", (event) => {
+          let nextIndex = index;
+
+          if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+          if (event.key === "ArrowLeft")
+            nextIndex = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === "Home") nextIndex = 0;
+          if (event.key === "End") nextIndex = tabs.length - 1;
+
+          if (nextIndex !== index) {
+            event.preventDefault();
+            activate(nextIndex, true);
+          }
+        });
+      });
+    });
+</script>
+
+<style>
+  .problem__grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .problem__heading {
+    max-width: 44rem;
+  }
+
+  .problem__heading h2 {
+    margin-top: 0.9rem;
+  }
+
+  .problem__copy {
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    max-width: 38rem;
+    color: var(--muted);
+    font-size: 1.06rem;
+  }
+
+  .problem__questions {
+    display: grid;
+    gap: 0;
+    margin-top: 3.25rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-medium);
+    background: var(--white);
+    box-shadow: var(--shadow-small);
+  }
+
+  .problem__questions span {
+    display: flex;
+    min-height: 4.5rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    color: var(--ink);
+    font-weight: 720;
+  }
+
+  .problem__questions span::before {
+    width: 0.55rem;
+    height: 0.55rem;
+    flex: 0 0 auto;
+    margin-right: 0.75rem;
+    border-radius: 50%;
+    background: var(--gradient);
+    content: "";
+  }
+
+  .problem__questions span:last-child {
+    border-bottom: 0;
+  }
+
+  .visibility-tabs__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .visibility-tabs__nav button {
+    display: inline-flex;
+    min-height: 2.9rem;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--muted);
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.86rem;
+    font-weight: 730;
+    white-space: nowrap;
+    transition:
+      color var(--transition),
+      border-color var(--transition),
+      background var(--transition),
+      box-shadow var(--transition);
+  }
+
+  .visibility-tabs__nav button > span {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: 0 0 auto;
+    border: 2px solid #8daab8;
+    border-radius: 50%;
+    transition:
+      scale var(--transition),
+      background var(--transition),
+      border-color var(--transition);
+  }
+
+  .visibility-tabs__nav button[aria-selected="true"] {
+    border-color: var(--brand);
+    background: var(--brand);
+    box-shadow: 0 10px 24px rgb(0 66 103 / 18%);
+    color: var(--white);
+  }
+
+  .visibility-tabs__nav button[aria-selected="true"] > span {
+    border-color: #73e0cf;
+    background: var(--teal);
+    scale: 1.3;
+  }
+
+  .visibility-tabs__panels {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .visibility-tabs.tabs-ready [data-visibility-panel][hidden] {
+    display: none;
+  }
+
+  .visibility__item {
+    position: relative;
+    display: grid;
+    min-height: 18rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-content: center;
+    align-items: start;
+    gap: 1.4rem;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-large);
+    background:
+      radial-gradient(
+        circle at 88% 14%,
+        rgb(21 184 154 / 16%),
+        transparent 25%
+      ),
+      linear-gradient(135deg, #fff, #edf8fb);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    box-shadow: var(--shadow-small);
+  }
+
+  .visibility__item::after {
+    position: absolute;
+    right: -2rem;
+    bottom: -2rem;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(7 153 182 / 12%), transparent 70%);
+    content: "";
+  }
+
+  .visibility__icon {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: 0.9rem;
+    background: var(--soft-blue);
+    color: var(--brand);
+  }
+
+  .visibility__item h3 {
+    margin-top: 0.5rem;
+    font-size: clamp(1.55rem, 3vw, 2.45rem);
+    letter-spacing: -0.025em;
+  }
+
+  .visibility__item p:not(.visibility__label) {
+    max-width: 42rem;
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .visibility__item .visibility__label {
+    color: var(--cyan);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .visibility__cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+    border: 1px solid #cce1ea;
+    border-radius: var(--radius-medium);
+    background: linear-gradient(110deg, #fff, #e9f7f8);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .visibility__cta p {
+    color: var(--text);
+  }
+
+  .visibility__cta strong {
+    color: var(--brand);
+  }
+
+  @media (min-width: 48rem) {
+    .problem__grid {
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 5rem;
+    }
+
+    .problem__questions {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .problem__questions span {
+      border-right: 1px solid var(--border);
+      border-bottom: 0;
+    }
+
+    .problem__questions span:last-child {
+      border-right: 0;
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .visibility-tabs__nav {
+      width: calc(100% + var(--gutter));
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-right: var(--gutter);
+      scrollbar-width: none;
+    }
+
+    .visibility-tabs__nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .visibility-tabs__nav button {
+      min-height: 2.65rem;
+      padding: 0.55rem 0.85rem;
+      font-size: 0.8rem;
+    }
+
+    .problem__grid {
+      gap: 1.25rem;
+    }
+
+    .problem__copy {
+      gap: 0.7rem;
+      font-size: 0.98rem;
+    }
+
+    .problem__questions {
+      margin-top: 2rem;
+    }
+
+    .problem__questions span {
+      min-height: 3.4rem;
+      padding-block: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .visibility__item {
+      min-height: 16rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.35rem;
+    }
+
+    .visibility__cta {
+      display: grid;
+      margin-top: 0.8rem;
+    }
+  }
+</style>

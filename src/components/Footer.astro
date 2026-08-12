@@ -1,0 +1,111 @@
+---
+import { Brain, ExternalLink, MessageCircleMore } from "@lucide/astro";
+import { site } from "../data/content";
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a href="#inicio" aria-label="Shelfia — voltar ao início"
+        ><Brain size={28} aria-hidden="true" /><b>Shelfia</b></a
+      ><p>O olho do dono em todas as gôndolas da rede.</p>
+    </div><div class="footer__column">
+      <strong>Navegação</strong>{
+        site.nav.map((item) => <a href={item.href}>{item.label}</a>)
+      }
+    </div><div class="footer__column">
+      <strong>Acesso</strong>{
+        site.legacyLinks.map((item) => (
+          <a href={item.href} target="_blank" rel="noopener noreferrer">
+            {item.label}
+            <ExternalLink size={13} aria-hidden="true" />
+          </a>
+        ))
+      }
+    </div><div class="footer__column footer__contact">
+      <strong>Contato</strong><a
+        href={site.whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        ><MessageCircleMore size={16} aria-hidden="true" />+55 83 99965-1105</a
+      ><p>Visibilidade da gôndola para a operação de supermercados.</p>
+    </div>
+  </div><div class="container footer__bottom">
+    <span
+      >© {new Date().getFullYear()} Shelfia. Todos os direitos reservados.</span
+    ><span>Uma solução para redes que querem enxergar a execução de perto.</span
+    >
+  </div>
+</footer>
+<style>
+  .footer {
+    background: var(--navy-950);
+    color: #a9b8d1;
+    padding: 4rem 0 1.5rem;
+  }
+  .footer__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  .footer__brand a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #fff;
+    font-size: 1.35rem;
+    letter-spacing: -0.055em;
+  }
+  .footer__brand a :global(svg) {
+    color: #76a8ff;
+  }
+  .footer__brand p {
+    max-width: 24rem;
+    margin-top: 1.2rem;
+    font-size: 0.88rem;
+  }
+  .footer__column {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    font-size: 0.84rem;
+  }
+  .footer__column strong {
+    margin-bottom: 0.3rem;
+    color: #fff;
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer__column a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: fit-content;
+    transition: color var(--transition);
+  }
+  .footer__column a:hover {
+    color: #fff;
+  }
+  .footer__contact p {
+    max-width: 18rem;
+  }
+  .footer__contact :global(svg) {
+    color: #5ee7b0;
+  }
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3.5rem;
+    border-top: 1px solid #253455;
+    padding-top: 1.25rem;
+    color: #7485a1;
+    font-size: 0.72rem;
+  }
+  @media (min-width: 48rem) {
+    .footer__grid {
+      grid-template-columns: 1.25fr 0.65fr 0.65fr 1fr;
+    }
+  }
+</style>

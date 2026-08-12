@@ -1,0 +1,65 @@
+---
+import CampaignTracking from "../components/CampaignTracking.astro";
+import ScrollReveal from "../components/ScrollReveal.astro";
+import Seo from "../components/Seo.astro";
+import manropeLatinUrl from "@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url";
+import "../styles/font.css";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  preloadImage?: string;
+  jsonLd: Record<string, unknown>;
+}
+
+const { title, description, image, imageAlt, preloadImage, jsonLd } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="preload"
+      href={manropeLatinUrl}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    {
+      preloadImage && (
+        <link
+          rel="preload"
+          as="image"
+          href={preloadImage}
+          type="image/avif"
+          fetchpriority="high"
+        />
+      )
+    }
+    <Seo {title} {description} {image} {imageAlt} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo-principal">Ir para o conteúdo</a>
+    <slot name="header" />
+    <main id="conteudo-principal" tabindex="-1">
+      <slot />
+    </main>
+    <slot name="footer" />
+    <CampaignTracking />
+    <ScrollReveal />
+  </body>
+</html>
