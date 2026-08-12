@@ -6,8 +6,6 @@ import {
   LockKeyhole,
   MessageCircleMore,
 } from "@lucide/astro";
-import { Picture } from "astro:assets";
-import diagnosticManager from "../assets/human/diagnostic-shelfia-manager-v1.png";
 import {
   challengeOptions,
   currentProcessOptions,
@@ -42,25 +40,6 @@ import {
           <Check size={17} aria-hidden="true" /> Você confirma o envio no WhatsApp
         </li>
       </ul>
-      <div class="qualification__human" data-reveal>
-        <div class="qualification__human-backdrop" aria-hidden="true"></div>
-        <Picture
-          src={diagnosticManager}
-          alt="Gestora de supermercado com prancheta e celular"
-          widths={[280, 420, 560]}
-          sizes="(max-width: 48rem) 78vw, 28vw"
-          formats={["avif", "webp"]}
-          fallbackFormat="webp"
-          loading="lazy"
-        />
-        <div class="qualification__human-note" aria-hidden="true">
-          <span></span><div>
-            <small>Diagnóstico inicial</small><strong
-              >A sua operação, do seu jeito</strong
-            >
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="form-card" data-form-card data-reveal>
@@ -513,78 +492,6 @@ import {
     color: #55d7c0;
   }
 
-  .qualification__human {
-    position: relative;
-    min-height: 13.5rem;
-    margin-top: 1.7rem;
-    overflow: hidden;
-    border: 1px solid rgb(255 255 255 / 14%);
-    border-radius: 1.15rem;
-    background: linear-gradient(145deg, #16395c, #0c263d);
-  }
-  .qualification__human-backdrop {
-    position: absolute;
-    right: -1.5rem;
-    bottom: -4rem;
-    width: 17rem;
-    height: 17rem;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      #2c9de6 0%,
-      #2854b7 48%,
-      transparent 49%
-    );
-    opacity: 0.75;
-  }
-  .qualification__human :global(picture) {
-    position: absolute;
-    z-index: 1;
-    right: -2%;
-    bottom: -8rem;
-    width: 72%;
-  }
-  .qualification__human :global(img) {
-    width: 100%;
-    height: auto;
-    mix-blend-mode: multiply;
-    filter: drop-shadow(-0.7rem 0.9rem 1.2rem rgb(0 0 0 / 30%));
-  }
-  .qualification__human-note {
-    position: absolute;
-    z-index: 2;
-    bottom: 0.75rem;
-    left: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    border: 1px solid rgb(255 255 255 / 50%);
-    border-radius: 0.7rem;
-    background: rgb(255 255 255 / 94%);
-    box-shadow: 0 0.75rem 1.4rem rgb(0 0 0 / 16%);
-    padding: 0.6rem 0.7rem;
-  }
-  .qualification__human-note > span {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 0.45rem;
-    background: linear-gradient(135deg, #3b82f6, #10b981);
-  }
-  .qualification__human-note small,
-  .qualification__human-note strong {
-    display: block;
-    line-height: 1.25;
-  }
-  .qualification__human-note small {
-    color: #64748b;
-    font-size: 0.55rem;
-  }
-  .qualification__human-note strong {
-    max-width: 12rem;
-    color: #0f172a;
-    font-size: 0.66rem;
-  }
-
   .form-card {
     min-height: 35rem;
     overflow: hidden;
@@ -860,14 +767,6 @@ import {
   }
 
   @media (max-width: 47.999rem) {
-    .qualification__human {
-      min-height: 12rem;
-    }
-    .qualification__human :global(picture) {
-      right: -1rem;
-      bottom: -7rem;
-      width: 68%;
-    }
     .form__step {
       min-height: 24rem;
     }
