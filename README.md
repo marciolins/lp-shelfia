@@ -12,7 +12,7 @@ npm run dev
 Variáveis públicas opcionais:
 
 ```bash
-PUBLIC_SITE_URL=https://www.shelfia.com.br
+PUBLIC_SITE_URL=https://lp.shelfia.com.br
 PUBLIC_WHATSAPP_NUMBER=5583999651105
 ```
 

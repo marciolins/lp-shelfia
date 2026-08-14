@@ -13,4 +13,4 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-Sitemap: https://www.shelfia.com.br/sitemap.xml
+Sitemap: https://lp.shelfia.com.br/sitemap.xml

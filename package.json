@@ -9,11 +9,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "start": "serve -s dist",
+    "start": "serve -s dist -l tcp://0.0.0.0:${PORT:-4321}",
     "check": "astro check",
     "build": "astro check && astro build",
     "audit:production": "node scripts/audit-production.mjs",
-    "preview": "serve -s dist",
+    "preview": "serve -s dist -l tcp://0.0.0.0:${PORT:-4321}",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

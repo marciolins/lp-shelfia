@@ -8,7 +8,7 @@ const whatsappNumber =
 export const site = {
   name: "Shelfia",
   legalName: "Shelfia AI",
-  url: import.meta.env.PUBLIC_SITE_URL?.trim() || "https://www.shelfia.com.br",
+  url: import.meta.env.PUBLIC_SITE_URL?.trim() || "https://lp.shelfia.com.br",
   whatsappNumber,
   whatsappUrl: `https://wa.me/${whatsappNumber}`,
   bookingUrl:

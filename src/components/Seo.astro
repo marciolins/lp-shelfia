@@ -8,7 +8,7 @@ interface Props {
 
 const { title, description, image, imageAlt } = Astro.props;
 const base = new URL(
-  import.meta.env.PUBLIC_SITE_URL?.trim() || "https://www.shelfia.com.br",
+  import.meta.env.PUBLIC_SITE_URL?.trim() || "https://lp.shelfia.com.br",
 );
 const canonical = new URL(Astro.url.pathname, base);
 const socialImage = new URL(image, base);

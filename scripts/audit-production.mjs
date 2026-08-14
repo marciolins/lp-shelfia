@@ -26,7 +26,7 @@ if (h1Count !== 1) fail(`Expected one H1; found ${h1Count}.`);
 if (/localhost|127\.0\.0\.1/i.test(html))
   fail("Local URL found in index.html.");
 if (
-  !/<link rel="canonical" href="https:\/\/www\.shelfia\.com\.br\/?"/.test(html)
+  !/<link rel="canonical" href="https:\/\/lp\.shelfia\.com\.br\/?"/.test(html)
 )
   fail("Canonical URL is missing or invalid.");
 if (!/og:image:width" content="1200"/.test(html))
