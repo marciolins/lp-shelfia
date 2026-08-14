@@ -9,15 +9,16 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "start": "serve -s dist -l tcp://0.0.0.0:${PORT:-4321}",
+    "start": "HOST=0.0.0.0 node ./dist/server/entry.mjs",
     "check": "astro check",
     "build": "astro check && astro build",
     "audit:production": "node scripts/audit-production.mjs",
-    "preview": "serve -s dist -l tcp://0.0.0.0:${PORT:-4321}",
+    "preview": "HOST=0.0.0.0 node ./dist/server/entry.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@astrojs/node": "^11.1.2",
     "@fontsource-variable/manrope": "5.3.0",
     "@lucide/astro": "1.26.0",
     "astro": "7.1.3",

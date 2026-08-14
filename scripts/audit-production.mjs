@@ -3,7 +3,9 @@ import { extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
-const distRoot = join(projectRoot, "dist");
+const distRoot = existsSync(join(projectRoot, "dist", "client"))
+  ? join(projectRoot, "dist", "client")
+  : join(projectRoot, "dist");
 const sourceRoots = [join(projectRoot, "src"), join(projectRoot, "public")];
 
 const fail = (message) => {
