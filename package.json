@@ -9,11 +9,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "start": "HOST=0.0.0.0 node ./dist/server/entry.mjs",
+    "start": "node ./dist/server/entry.mjs",
     "check": "astro check",
     "build": "astro check && astro build",
     "audit:production": "node scripts/audit-production.mjs",
-    "preview": "HOST=0.0.0.0 node ./dist/server/entry.mjs",
+    "preview": "node ./dist/server/entry.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

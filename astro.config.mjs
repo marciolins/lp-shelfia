@@ -6,6 +6,9 @@ export default defineConfig({
   adapter: node({
     mode: "standalone",
   }),
+  server: {
+    host: "0.0.0.0",
+  },
   site: process.env.PUBLIC_SITE_URL || "https://lp.shelfia.com.br",
   trailingSlash: "never",
   devToolbar: { enabled: false },
