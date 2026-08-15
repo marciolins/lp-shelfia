@@ -14,6 +14,7 @@ Variáveis públicas opcionais:
 ```bash
 PUBLIC_SITE_URL=https://lp.shelfia.com.br
 PUBLIC_WHATSAPP_NUMBER=5583999651105
+PUBLIC_WEBHOOK_URL=https://www.acqops.com.br/webhooks/landing-page?ref=77fd1ce0838b8bcc
 ```
 
 ## Validação

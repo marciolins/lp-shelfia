@@ -55,6 +55,7 @@ import {
         class="form"
         data-qualification-form
         data-whatsapp={site.whatsappNumber}
+        data-webhook={site.webhookUrl}
         novalidate
       >
         <fieldset class="form__step" data-form-step>
@@ -390,6 +391,56 @@ import {
     return `https://wa.me/${number}?text=${encodeURIComponent(lines.join("\n"))}`;
   };
 
+  const sendWebhookData = () => {
+    if (!form) return;
+    const webhookUrl =
+      form.dataset.webhook ||
+      "https://www.acqops.com.br/webhooks/landing-page?ref=77fd1ce0838b8bcc";
+    if (!webhookUrl) return;
+
+    const values = new FormData(form);
+    let attribution: Record<string, string> = {};
+    try {
+      attribution = JSON.parse(
+        sessionStorage.getItem("shelfia_attribution") || "{}",
+      ) as Record<string, string>;
+    } catch {
+      attribution = {};
+    }
+
+    const payload = {
+      nome: String(values.get("nome") ?? ""),
+      email: String(values.get("email") ?? ""),
+      telefone: String(values.get("telefone") ?? ""),
+      empresa: String(values.get("empresa") ?? ""),
+      quantidade_lojas: String(values.get("quantidade_lojas") ?? ""),
+      processo_atual: String(values.get("processo_atual") ?? ""),
+      desafio: String(values.get("desafio") ?? ""),
+      erp: String(values.get("erp") ?? ""),
+      attribution,
+      page_url: window.location.href,
+      created_at: new Date().toISOString(),
+    };
+
+    const jsonPayload = JSON.stringify(payload);
+
+    try {
+      if (navigator.sendBeacon) {
+        const blob = new Blob([jsonPayload], { type: "application/json" });
+        navigator.sendBeacon(webhookUrl, blob);
+      } else {
+        fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: jsonPayload,
+          keepalive: true,
+        }).catch(() => {});
+      }
+    } catch {
+      // Ignore network errors to prevent disrupting user experience
+    }
+  };
+
   next?.addEventListener("click", () => {
     if (currentStep >= steps.length - 1 || !validateCurrentStep()) return;
     track("qualification_step_complete", { step: currentStep + 1 });
@@ -406,6 +457,7 @@ import {
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!validateCurrentStep()) return;
+    sendWebhookData();
     const url = buildWhatsAppUrl();
     if (fallback) fallback.href = url;
     track("qualification_complete", { step: steps.length });

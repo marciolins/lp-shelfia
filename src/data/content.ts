@@ -5,12 +5,17 @@ export type FaqItem = { question: string; answer: string };
 const whatsappNumber =
   import.meta.env.PUBLIC_WHATSAPP_NUMBER?.trim() || "5583999651105";
 
+const webhookUrl =
+  import.meta.env.PUBLIC_WEBHOOK_URL?.trim() ||
+  "https://www.acqops.com.br/webhooks/landing-page?ref=77fd1ce0838b8bcc";
+
 export const site = {
   name: "Shelfia",
   legalName: "Shelfia AI",
   url: import.meta.env.PUBLIC_SITE_URL?.trim() || "https://lp.shelfia.com.br",
   whatsappNumber,
   whatsappUrl: `https://wa.me/${whatsappNumber}`,
+  webhookUrl,
   bookingUrl:
     "https://outlook.office.com/book/ComercialIMWTI@imwti.com.br/?ismsaljsauthenabled",
   nav: [
