@@ -454,6 +454,22 @@ import {
     update(true);
   });
 
+  form?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      const target = event.target as HTMLElement | null;
+      if (target?.tagName === "BUTTON" || target?.tagName === "TEXTAREA") return;
+
+      if (currentStep < steps.length - 1) {
+        event.preventDefault();
+        if (validateCurrentStep()) {
+          track("qualification_step_complete", { step: currentStep + 1 });
+          currentStep += 1;
+          update(true);
+        }
+      }
+    }
+  });
+
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
     if (!validateCurrentStep()) return;
