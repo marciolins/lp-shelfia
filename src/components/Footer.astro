@@ -23,12 +23,14 @@ import { site } from "../data/content";
         ))
       }
     </div><div class="footer__column footer__contact">
-      <strong>Contato</strong><a
-        href={site.whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        ><MessageCircleMore size={16} aria-hidden="true" />+55 83 99965-1105</a
-      ><p>Visibilidade da gôndola para a operação de supermercados.</p>
+      <strong>Contato</strong>{
+        site.whatsappDisplay ? (
+          <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <MessageCircleMore size={16} aria-hidden="true" />
+            {site.whatsappDisplay}
+          </a>
+        ) : null
+      }<p>Visibilidade da gôndola para a operação de supermercados.</p>
     </div>
   </div><div class="container footer__bottom">
     <span

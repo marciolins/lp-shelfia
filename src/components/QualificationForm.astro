@@ -387,15 +387,14 @@ import {
     if (attribution.msclkid)
       lines.push(`Microsoft Click ID: ${attribution.msclkid}`);
 
-    const number = form.dataset.whatsapp || "5583999651105";
+    const number = form.dataset.whatsapp?.trim() || "";
+    if (!number) return "#";
     return `https://wa.me/${number}?text=${encodeURIComponent(lines.join("\n"))}`;
   };
 
   const sendWebhookData = () => {
     if (!form) return;
-    const webhookUrl =
-      form.dataset.webhook ||
-      "https://www.acqops.com.br/webhooks/landing-page?ref=77fd1ce0838b8bcc";
+    const webhookUrl = form.dataset.webhook?.trim() || "";
     if (!webhookUrl) return;
 
     const values = new FormData(form);
@@ -457,7 +456,8 @@ import {
   form?.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       const target = event.target as HTMLElement | null;
-      if (target?.tagName === "BUTTON" || target?.tagName === "TEXTAREA") return;
+      if (target?.tagName === "BUTTON" || target?.tagName === "TEXTAREA")
+        return;
 
       if (currentStep < steps.length - 1) {
         event.preventDefault();

@@ -57,8 +57,8 @@ import { site } from "../data/content";
           <a
             class="final-cta__whatsapp"
             href={site.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={site.whatsappNumber ? "_blank" : undefined}
+            rel={site.whatsappNumber ? "noopener noreferrer" : undefined}
             ><MessageCircleMore size={19} aria-hidden="true" />Falar pelo
             WhatsApp</a
           >

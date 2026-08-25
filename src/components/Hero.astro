@@ -31,9 +31,11 @@ import { site } from "../data/content";
         </a>
         <a
           class="button button--secondary"
-          href={`${site.whatsappUrl}?text=${encodeURIComponent("Olá, gostaria de entender como a Shelfia pode apoiar minha rede.")}`}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={site.getWhatsAppUrl(
+            "Olá, gostaria de entender como a Shelfia pode apoiar minha rede.",
+          )}
+          target={site.whatsappNumber ? "_blank" : undefined}
+          rel={site.whatsappNumber ? "noopener noreferrer" : undefined}
         >
           <MessageCircleMore size={19} aria-hidden="true" />
           Falar pelo WhatsApp

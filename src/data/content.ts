@@ -2,19 +2,43 @@ export type NavItem = { label: string; href: string; external?: boolean };
 export type ChoiceOption = { value: string; label: string };
 export type FaqItem = { question: string; answer: string };
 
-const whatsappNumber =
-  import.meta.env.PUBLIC_WHATSAPP_NUMBER?.trim() || "5583999651105";
+const formatPhoneDisplay = (rawNumber: string) => {
+  const digits = rawNumber.replace(/\D/g, "");
+  if (digits.length === 13 && digits.startsWith("55")) {
+    return `+${digits.slice(0, 2)} ${digits.slice(2, 4)} ${digits.slice(4, 9)}-${digits.slice(9)}`;
+  }
+  if (digits.length === 11) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  }
+  return rawNumber;
+};
 
-const webhookUrl =
-  import.meta.env.PUBLIC_WEBHOOK_URL?.trim() ||
-  "https://www.acqops.com.br/webhooks/landing-page?ref=77fd1ce0838b8bcc";
+const formatPhoneInternational = (rawNumber: string) => {
+  const digits = rawNumber.replace(/\D/g, "");
+  if (digits.length === 13 && digits.startsWith("55")) {
+    return `+${digits.slice(0, 2)}-${digits.slice(2, 4)}-${digits.slice(4, 9)}-${digits.slice(9)}`;
+  }
+  return digits ? `+${digits}` : "";
+};
+
+const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER?.trim() || "";
+const webhookUrl = import.meta.env.PUBLIC_WEBHOOK_URL?.trim() || "";
+
+const getWhatsAppUrl = (message?: string) => {
+  if (!whatsappNumber) return "#diagnostico";
+  if (!message) return `https://wa.me/${whatsappNumber}`;
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+};
 
 export const site = {
   name: "Shelfia",
   legalName: "Shelfia AI",
   url: import.meta.env.PUBLIC_SITE_URL?.trim() || "https://lp.shelfia.com.br",
   whatsappNumber,
-  whatsappUrl: `https://wa.me/${whatsappNumber}`,
+  whatsappUrl: getWhatsAppUrl(),
+  getWhatsAppUrl,
+  whatsappDisplay: formatPhoneDisplay(whatsappNumber),
+  whatsappTelephone: formatPhoneInternational(whatsappNumber),
   webhookUrl,
   bookingUrl:
     "https://outlook.office.com/book/ComercialIMWTI@imwti.com.br/?ismsaljsauthenabled",
